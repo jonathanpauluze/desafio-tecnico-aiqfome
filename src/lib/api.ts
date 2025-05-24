@@ -39,9 +39,6 @@ export const apiClient = {
       ...options?.config
     })
 
-    // delay simulado para dev
-    await new Promise((res) => setTimeout(res, 2000))
-
     return handleResponse<T>(response)
   },
 

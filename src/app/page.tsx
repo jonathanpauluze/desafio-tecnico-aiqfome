@@ -1,4 +1,4 @@
-import { RestaurantList } from '@/templates/restaurant/restaurant-list'
+import { RestaurantList } from '@/templates/restaurant/components/restaurant-list'
 import Image from 'next/image'
 
 type PageProps = {
