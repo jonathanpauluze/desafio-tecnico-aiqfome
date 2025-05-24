@@ -1,0 +1,205 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "Matsuri Concept",
+      "rating": 4.5,
+      "delivery_fee": 499,
+      "free_delivery_over": 3500,
+      "min_order": 1500,
+      "distance_km": 5.2,
+      "delivery_time_min": "30-40",
+      "closes_at": "20:00",
+      "image": "/assets/restaurants-logos/matsuri_concept.png",
+      "is_closed": false
+    },
+    {
+      "id": 2,
+      "name": "Burger King - Colombo",
+      "rating": 4.7,
+      "delivery_fee": 600,
+      "free_delivery_over": null,
+      "min_order": 2000,
+      "distance_km": 3.1,
+      "delivery_time_min": "20-30",
+      "closes_at": "22:00",
+      "image": "/assets/restaurants-logos/burger_king.png",
+      "is_closed": false
+    },
+    {
+      "id": 3,
+      "name": "McDonald's - Novo Centro",
+      "rating": 4.7,
+      "delivery_fee": 0,
+      "free_delivery_over": null,
+      "min_order": 2000,
+      "distance_km": 2.5,
+      "delivery_time_min": "25-35",
+      "closes_at": "23:00",
+      "image": "/assets/restaurants-logos/mc_donalds.png",
+      "is_closed": false
+    },
+    {
+      "id": 4,
+      "name": "Subway - Avenida Center",
+      "rating": 4.7,
+      "delivery_fee": 600,
+      "free_delivery_over": null,
+      "min_order": 1500,
+      "distance_km": 3.8,
+      "delivery_time_min": "20-30",
+      "closes_at": "21:00",
+      "image": "/assets/restaurants-logos/subway.png",
+      "is_closed": false
+    },
+    {
+      "id": 5,
+      "name": "McDonald's - Colombo",
+      "rating": 4.7,
+      "delivery_fee": 0,
+      "free_delivery_over": null,
+      "min_order": 2000,
+      "distance_km": 2.5,
+      "delivery_time_min": "25-35",
+      "closes_at": "18:00",
+      "image": "/assets/restaurants-logos/mc_donalds.png",
+      "is_closed": true
+    },
+    {
+      "id": 6,
+      "name": "Subway - Novo Centro",
+      "rating": 4.7,
+      "delivery_fee": 600,
+      "free_delivery_over": null,
+      "min_order": 150,
+      "distance_km": 3.8,
+      "delivery_time_min": "20-30",
+      "closes_at": "17:30",
+      "image": "/assets/restaurants-logos/subway.png",
+      "is_closed": true
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "Niguiri", "restaurantId": 1 },
+    { "id": 2, "name": "Ceviches", "restaurantId": 1 },
+    { "id": 3, "name": "Temakis", "restaurantId": 1 },
+    { "id": 4, "name": "Bebidas", "restaurantId": 1 },
+    { "id": 5, "name": "Sanduíches", "restaurantId": 2 },
+    { "id": 6, "name": "Combos", "restaurantId": 2 },
+    { "id": 7, "name": "Lanches", "restaurantId": 3 },
+    { "id": 8, "name": "Sobremesas", "restaurantId": 3 },
+    { "id": 9, "name": "Submarinos", "restaurantId": 4 },
+    { "id": 10, "name": "Acompanhamentos", "restaurantId": 4 }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Ceviche de salmão",
+      "description": "Salmão temperado com limão, cebola e pimenta",
+      "price": 1990,
+      "categoryId": 2,
+      "image": "https://source.unsplash.com/600x400/?ceviche,salmon"
+    },
+    {
+      "id": 2,
+      "name": "Temaki Califórnia",
+      "description": "Kani, pepino e maçã ou manga",
+      "price": 1399,
+      "categoryId": 3,
+      "image": "https://source.unsplash.com/600x400/?temaki,sushi"
+    },
+    {
+      "id": 3,
+      "name": "Temaki Filadélfia",
+      "description": "Salmão fresco, cream cheese e cebolinha",
+      "price": 1400,
+      "categoryId": 3,
+      "image": "https://source.unsplash.com/600x400/?temaki,philadelphia"
+    },
+    {
+      "id": 4,
+      "name": "Coca-cola lata",
+      "description": "350ml",
+      "price": 500,
+      "categoryId": 4,
+      "image": "https://source.unsplash.com/600x400/?cocacola,drink"
+    },
+    {
+      "id": 5,
+      "name": "Whopper",
+      "description": "Pão com gergelim, hambúrguer grelhado, alface, tomate, maionese e ketchup",
+      "price": 2490,
+      "categoryId": 5,
+      "image": "https://source.unsplash.com/600x400/?whopper,burgerking"
+    },
+    {
+      "id": 6,
+      "name": "Combo Whopper + Batata + Refri",
+      "description": "Combo com batata média e refrigerante",
+      "price": 3590,
+      "categoryId": 6,
+      "image": "https://source.unsplash.com/600x400/?combo,fastfood"
+    },
+    {
+      "id": 7,
+      "name": "Cheeseburger",
+      "description": "Pão, carne, queijo e ketchup",
+      "price": 1200,
+      "categoryId": 7,
+      "image": "https://source.unsplash.com/600x400/?cheeseburger"
+    },
+    {
+      "id": 8,
+      "name": "McLanche Feliz",
+      "description": "Inclui brinquedo surpresa",
+      "price": 2200,
+      "categoryId": 7,
+      "image": "https://source.unsplash.com/600x400/?happymeal"
+    },
+    {
+      "id": 9,
+      "name": "Sundae de Chocolate",
+      "description": "Sorvete de baunilha com calda de chocolate",
+      "price": 750,
+      "categoryId": 8,
+      "image": "https://source.unsplash.com/600x400/?sundae,dessert"
+    },
+    {
+      "id": 10,
+      "name": "Sub de Frango",
+      "description": "Pão 15cm, frango grelhado, alface e molho barbecue",
+      "price": 19.9,
+      "categoryId": 9,
+      "image": "https://source.unsplash.com/600x400/?chicken,sandwich"
+    },
+    {
+      "id": 11,
+      "name": "Sub de Carne",
+      "description": "Pão 15cm, carne bovina, cheddar, alface",
+      "price": 2050,
+      "categoryId": 9,
+      "image": "https://source.unsplash.com/600x400/?beef,sandwich"
+    },
+    {
+      "id": 12,
+      "name": "Cookies Subway",
+      "description": "Cookie de chocolate 45g",
+      "price": 350,
+      "categoryId": 10,
+      "image": "https://source.unsplash.com/600x400/?cookie,chocolate"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "restaurantId": 1,
+      "items": [
+        { "productId": 1, "quantity": 2, "price": 1990 },
+        { "productId": 3, "quantity": 1, "price": 1400 }
+      ],
+      "subtotal": 5380,
+      "status": "pending",
+      "address": "Rua Mandaguari, 198"
+    }
+  ]
+}
