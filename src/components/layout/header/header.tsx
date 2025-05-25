@@ -11,7 +11,7 @@ export function Header() {
   const isHomePage = pathname === '/'
 
   return (
-    <header className="bg-brand p-4 flex flex-col gap-4">
+    <header className="bg-brand dark:bg-[#7b1fa3] p-4 flex flex-col gap-4">
       <div className="flex gap-6 justify-between items-center">
         <Button variant="unstyled" size="icon" onClick={() => router.push('/')}>
           <LogoIcon width={32} height={32} />
