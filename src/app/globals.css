@@ -38,7 +38,7 @@ body {
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --brand: 282 68% 38%;
+      --brand: 270 95% 75%;
       --background: 220.91deg 39.29% 10.98%;
       --foreground: 0 0% 98%;
       --card: 0 0% 3.9%;
