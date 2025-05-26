@@ -16,7 +16,7 @@ export function useShareRestaurant() {
           url
         })
         .catch((err) => {
-          console.error('Erro ao compartilhar:', err)
+          console.log('Erro ao compartilhar:', err)
         })
     } else {
       navigator.clipboard
@@ -30,7 +30,7 @@ export function useShareRestaurant() {
           })
         })
         .catch((err) => {
-          console.error('Erro ao copiar URL:', err)
+          console.log('Erro ao copiar URL:', err)
         })
     }
   }
