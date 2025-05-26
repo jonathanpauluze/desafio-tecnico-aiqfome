@@ -333,38 +333,46 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
                   name={key}
                   render={({ field }) => (
                     <FormItem key={key}>
-                      {option.choices?.map((choice) => (
-                        <div
-                          key={choice.id}
-                          className="flex items-center gap-2 justify-between"
-                        >
-                          <div className="flex items-center gap-2">
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value?.includes(choice.id)}
-                                onCheckedChange={(checked) => {
-                                  const valueArray = field.value ?? []
-                                  if (checked) {
-                                    field.onChange([...valueArray, choice.id])
-                                  } else {
-                                    field.onChange(
-                                      valueArray.filter(
-                                        (v: string) => v !== choice.id
+                      {option.choices?.map((choice) => {
+                        const checkboxId = `${key}-${choice.id}`
+
+                        return (
+                          <div
+                            key={choice.id}
+                            className="flex items-center gap-2 justify-between"
+                          >
+                            <div className="flex items-center gap-2">
+                              <FormControl>
+                                <Checkbox
+                                  id={checkboxId}
+                                  checked={field.value?.includes(choice.id)}
+                                  onCheckedChange={(checked) => {
+                                    const valueArray = field.value ?? []
+                                    if (checked) {
+                                      field.onChange([...valueArray, choice.id])
+                                    } else {
+                                      field.onChange(
+                                        valueArray.filter(
+                                          (v: string) => v !== choice.id
+                                        )
                                       )
-                                    )
-                                  }
-                                }}
-                              />
-                            </FormControl>
-                            <FormLabel>{choice.label}</FormLabel>
+                                    }
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel htmlFor={checkboxId}>
+                                {choice.label}
+                              </FormLabel>
+                            </div>
+
+                            {choice.price ? (
+                              <p className="text-sm font-medium text-brand">
+                                + {formatCurrency(choice.price)}
+                              </p>
+                            ) : null}
                           </div>
-                          {choice.price ? (
-                            <p className="text-sm font-medium text-brand">
-                              + {formatCurrency(choice.price)}
-                            </p>
-                          ) : null}
-                        </div>
-                      ))}
+                        )
+                      })}
                       <FormMessage />
                     </FormItem>
                   )}
