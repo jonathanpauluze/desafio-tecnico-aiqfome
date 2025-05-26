@@ -397,12 +397,16 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
           />
         </div>
 
-        <button
-          type="submit"
-          className="bg-brand text-white px-4 py-2 rounded font-bold"
-        >
-          Ver ticket
-        </button>
+        {values.quantity > 0 ? (
+          <div className="fixed bottom-0 left-0 right-0 py-4 px-6 bg-[linear-gradient(to_top,_#ffffff_0%,_#fefefe_20%,_#fefefe_20%,_#f6f8fa_90%)] dark:bg-[linear-gradient(to_top,_#111827_0%,_#1f2937_20%,_#1f2937_20%,_#374151_90%)]">
+            <Button
+              type="submit"
+              className="w-full h-12 bg-brand text-white px-4 py-2 rounded font-bold"
+            >
+              Ver ticket
+            </Button>
+          </div>
+        ) : null}
       </form>
     </Form>
   )
