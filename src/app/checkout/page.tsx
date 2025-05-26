@@ -23,7 +23,10 @@ export default function Checkout() {
 
   return (
     <div className="min-h-[calc(100vh-204px)] lg:min-h-[calc(100vh-180px)] pb-[84px]">
-      <div className="mt-6 px-4 flex items-center gap-2">
+      <Link
+        href={`/restaurant/${restaurant.id}`}
+        className="mt-6 px-4 flex items-center gap-2"
+      >
         <Image
           src={restaurant.image}
           alt=""
@@ -38,7 +41,7 @@ export default function Checkout() {
           </span>
           <strong className="font-bold">{restaurant.name}</strong>
         </div>
-      </div>
+      </Link>
 
       {isCartEmpty ? (
         <div className="flex flex-col items-center gap-2">
@@ -77,14 +80,17 @@ export default function Checkout() {
                 </div>
 
                 <div className="self-end flex items-center gap-6">
-                  <Button variant="ghost">
-                    <Link
-                      href={`/restaurant/${item.restaurantId}/product/${item.productId}?edit=${item.id}`}
-                      className="flex items-center gap-1 text-sm text-teal-400 font-bold"
-                    >
-                      <PencilIcon className="w-6 h-6" />
-                      editar
-                    </Link>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center gap-1 text-sm text-teal-400 font-bold"
+                    onClick={() =>
+                      router.push(
+                        `/restaurant/${item.restaurantId}/product/${item.productId}?edit=${item.id}`
+                      )
+                    }
+                  >
+                    <PencilIcon className="w-6 h-6" />
+                    editar
                   </Button>
 
                   <QuantityInput
