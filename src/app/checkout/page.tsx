@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, redirect } from 'next/navigation'
 import { useCartStore } from '@/contexts/use-cart-store'
 import { Button } from '@/ui'
 import { PencilIcon } from '@/icons'
@@ -19,7 +19,9 @@ export default function Checkout() {
 
   const isCartEmpty = items?.length === 0
 
-  if (!restaurant) return null
+  if (!restaurant) {
+    redirect('/')
+  }
 
   return (
     <div className="min-h-[calc(100vh-204px)] lg:min-h-[calc(100vh-180px)] pb-[84px]">
