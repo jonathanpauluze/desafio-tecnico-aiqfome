@@ -77,6 +77,7 @@ Alguns pontos foram considerados, mas optados por não serem implementados neste
 - [ ] Testes unitários
 - [ ] Animações de transição (para melhoria na usabilidade)
 - [ ] Uso da API de geolocalização do browser e busca por CEP
+- [ ] Internacionalização com i18next
 
 ## 🧠 Decisões técnicas
 
