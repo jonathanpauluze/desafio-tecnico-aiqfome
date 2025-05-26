@@ -5,12 +5,14 @@ import { HeartFilledIcon, HeartIcon } from '@/icons'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useFavoriteRestaurants } from '@/hooks/useFavoriteRestaurants'
 
-type FavoriteButtonProps = {
-  id: string
+type RestaurantFavoriteProps = {
+  restaurantId: string
 }
 
-export function RestaurantFavoriteButton(props: Readonly<FavoriteButtonProps>) {
-  const { id } = props
+export function RestaurantFavoriteButton(
+  props: Readonly<RestaurantFavoriteProps>
+) {
+  const { restaurantId } = props
 
   const isMounted = useIsMounted()
   const { isFavorite, toggleFavorite } = useFavoriteRestaurants()
@@ -18,17 +20,21 @@ export function RestaurantFavoriteButton(props: Readonly<FavoriteButtonProps>) {
   let icon = null
 
   if (isMounted) {
-    icon = isFavorite(id) ? <HeartFilledIcon /> : <HeartIcon />
+    icon = isFavorite(restaurantId) ? <HeartFilledIcon /> : <HeartIcon />
   }
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => toggleFavorite(id)}
+      onClick={() => toggleFavorite(restaurantId)}
       className="text-brand"
     >
       {icon}
+
+      <span className="sr-only">
+        {isFavorite(restaurantId) ? 'Desfavoritar' : 'Favoritar'}
+      </span>
     </Button>
   )
 }

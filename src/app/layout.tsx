@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
-import Layout from '@/components/layout/layout'
+import { Layout } from '@/components/layout'
 import './globals.css'
 
 const nunito = Nunito({

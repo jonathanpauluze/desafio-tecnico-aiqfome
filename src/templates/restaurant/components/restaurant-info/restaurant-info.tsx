@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button, Tag } from '@/ui'
-import { ShareIcon, ChevronRightIcon, MotocycleIcon, StarIcon } from '@/icons'
+import { ChevronRightIcon, MotocycleIcon, StarIcon } from '@/icons'
+import { RestaurantShareButton } from '../restaurant-share-button'
 import { RestaurantFavoriteButton } from '@/templates/restaurant/components/restaurant-favorite-button'
 import { formatCurrency } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -30,11 +31,9 @@ export async function RestaurantInfo(props: Readonly<RestaurantInfoProps>) {
 
       <div className="flex gap-4 justify-between my-2">
         <div className="flex gap-2">
-          <Button variant="ghost" size="icon">
-            <ShareIcon className="text-brand" />
-          </Button>
+          <RestaurantShareButton restaurantName={restaurant.name} />
 
-          <RestaurantFavoriteButton id={restaurant.id} />
+          <RestaurantFavoriteButton restaurantId={restaurant.id} />
         </div>
 
         <Button
