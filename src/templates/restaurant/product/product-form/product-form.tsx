@@ -28,6 +28,11 @@ import { QuantityInput } from '@/components/quantity-input'
 import { cn } from '@/lib/utils'
 import { type Restaurant, type Product } from '@/types/restaurant'
 import { RestaurantConflictDialog } from '../../components/restaurant-conflict-dialog'
+import {
+  getCheckboxExtras,
+  getQuantityExtras,
+  getRadioPrice
+} from '@/lib/form/price-utils'
 
 type ProductFormProps = {
   restaurant: Restaurant
@@ -70,58 +75,47 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
 
   const calculatedTotal = useMemo(() => {
     const options = product.options ?? {}
-    const valuesQuantity = values.quantity ?? 1
+    const quantity = values.quantity ?? 1
     let basePrice = product.price
     let extrasTotal = 0
+
+    const updateBasePrice = (price: number) => {
+      basePrice = price
+    }
 
     for (const [key, option] of Object.entries(options)) {
       const selected = values[key as keyof typeof values]
       if (!selected) continue
 
-      if (option.type === 'radio') {
-        const match = option.choices?.find(
-          (choice) => choice.label === selected
-        )
+      if (option.type === 'radio' && typeof selected === 'string') {
+        const result = getRadioPrice(key, selected, option, updateBasePrice)
 
-        if (match) {
-          if (key === 'size') {
-            basePrice = match.price
-          } else if (match.price) {
-            extrasTotal += match.price
-          }
-        }
+        extrasTotal += result.price
       }
 
       if (option.type === 'checkbox' && Array.isArray(selected)) {
-        selected.forEach((id: string) => {
-          const match = option.choices?.find((choice) => choice.id === id)
-
-          if (match?.price) {
-            extrasTotal += match.price
-          }
-        })
+        const extras = getCheckboxExtras(selected, option)
+        extrasTotal += extras.reduce((sum, extra) => sum + extra.price, 0)
       }
 
       if (option.type === 'quantity' && typeof selected === 'object') {
-        Object.entries(selected).forEach(([id, quantity]) => {
-          const parsedQuantity = Number(quantity)
-          const match = option.choices?.find((choice) => choice.id === id)
-
-          if (match?.price && parsedQuantity > 0) {
-            extrasTotal += match.price * parsedQuantity
-          }
-        })
+        const extras = getQuantityExtras(selected, option)
+        extrasTotal += extras.reduce((sum, extra) => sum + extra.price, 0)
       }
     }
 
-    return (basePrice + extrasTotal) * valuesQuantity
+    return (basePrice + extrasTotal) * quantity
   }, [values, product])
 
   const onSubmit = (data: FormData) => {
     const quantity = data.quantity ?? 1
     const observation = data.observation
     let basePrice = product.price
-    const extras: SelectedExtra[] = []
+    let extras: SelectedExtra[] = []
+
+    const updateBasePrice = (price: number) => {
+      basePrice = price
+    }
 
     const options = product.options ?? {}
 
@@ -129,33 +123,13 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
       const selected = data[key as keyof FormData]
       if (!selected) continue
 
-      if (option.type === 'radio') {
-        const choice = option.choices?.find(
-          (choice) => choice.label === selected
-        )
-        if (!choice) continue
-        if (key === 'size') {
-          basePrice = choice.price
-        } else if (choice.price) {
-          extras.push({
-            group: option.title,
-            label: choice.label,
-            price: choice.price
-          })
-        }
+      if (option.type === 'radio' && typeof selected === 'string') {
+        const result = getRadioPrice(key, selected, option, updateBasePrice)
+        if (result.extra) extras.push(result.extra)
       }
 
       if (option.type === 'checkbox' && Array.isArray(selected)) {
-        selected.forEach((value: string) => {
-          const choice = option.choices?.find((choice) => choice.id === value)
-          if (choice?.price) {
-            extras.push({
-              group: option.title,
-              label: choice.label,
-              price: choice.price
-            })
-          }
-        })
+        extras = extras.concat(getCheckboxExtras(selected, option))
       }
 
       if (
@@ -163,19 +137,7 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
         typeof selected === 'object' &&
         selected !== null
       ) {
-        Object.entries(selected as Record<string, number>).forEach(
-          ([id, quantity]) => {
-            if (typeof quantity !== 'number') return
-            const choice = option.choices?.find((c) => c.id === id)
-            if (choice && quantity > 0) {
-              extras.push({
-                group: option.title,
-                label: choice.label,
-                price: choice.price * quantity
-              })
-            }
-          }
-        )
+        extras = extras.concat(getQuantityExtras(selected, option))
       }
     }
 
