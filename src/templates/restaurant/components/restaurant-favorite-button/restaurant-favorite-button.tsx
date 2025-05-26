@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui'
 import { HeartFilledIcon, HeartIcon } from '@/icons'
-import { useIsMounted } from '@/hooks/useIsMounted'
-import { useFavoriteRestaurants } from '@/hooks/useFavoriteRestaurants'
+import { useIsMounted } from '@/hooks/use-is-mounted'
+import { useFavoriteRestaurants } from '@/hooks/use-favorite-restaurants'
 
 type RestaurantFavoriteProps = {
   restaurantId: string
