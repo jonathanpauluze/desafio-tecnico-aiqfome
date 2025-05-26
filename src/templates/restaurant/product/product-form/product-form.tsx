@@ -241,7 +241,7 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
               </div>
 
               {option.required ? (
-                <span className="text-xs text-neutral-50 font-bold bg-neutral-700 p-2 rounded-sm">
+                <span className="text-xs text-neutral-50 font-bold bg-neutral-700 p-2 rounded-sm self-start">
                   obrigatório
                 </span>
               ) : null}
