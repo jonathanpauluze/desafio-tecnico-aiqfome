@@ -1,5 +1,6 @@
 import { RestaurantInfo } from '@/templates/restaurant/components/restaurant-info'
 import { RestaurantMenu } from '@/templates/restaurant/components/restaurant-menu'
+import { RestaurantBagButton } from '@/templates/restaurant/components/restaurant-bag-button'
 import { apiClient } from '@/lib/api'
 import { type Restaurant } from '@/types'
 
@@ -24,6 +25,8 @@ export default async function Restaurant(props: Readonly<PageProps>) {
       <RestaurantInfo restaurant={restaurant} />
 
       <RestaurantMenu restaurantId={restaurantId} />
+
+      <RestaurantBagButton />
     </div>
   )
 }
