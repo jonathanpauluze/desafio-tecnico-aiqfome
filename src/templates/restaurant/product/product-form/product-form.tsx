@@ -22,26 +22,34 @@ import { useProductFormSchema } from '@/hooks/use-product-form-schema'
 import { getProductFormDefaultValues } from '@/lib/form/product-schema-utils'
 import { formatCurrency } from '@/lib/format'
 import z from 'zod'
-import { SelectedExtra, useCartStore } from '@/contexts/useCartStore'
-import { useMemo } from 'react'
+import { CartItem, SelectedExtra, useCartStore } from '@/contexts/useCartStore'
+import { useMemo, useState } from 'react'
 import { QuantityInput } from '@/components/quantity-input'
 import { cn } from '@/lib/utils'
-import type { Product } from '@/types/restaurant'
+import { type Restaurant, type Product } from '@/types/restaurant'
+import { RestaurantConflictDialog } from '../../components/restaurant-conflict-dialog'
 
 type ProductFormProps = {
+  restaurant: Restaurant
   product: Product
 }
 
-export function ProductForm({ product }: Readonly<ProductFormProps>) {
+export function ProductForm(props: Readonly<ProductFormProps>) {
+  const { restaurant, product } = props
+
+  const [showDialog, setShowDialog] = useState(false)
+  const [pendingItem, setPendingItem] = useState<Omit<
+    CartItem,
+    'totalPrice'
+  > | null>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
   const schema = useProductFormSchema(product.options ?? {})
+  const cart = useCartStore()
 
   const editId = searchParams.get('edit')
 
-  const itemToEdit = useCartStore
-    .getState()
-    .items.find((item) => item.id === editId)
+  const itemToEdit = cart.items.find((item) => item.id === editId)
 
   const defaultValues = itemToEdit
     ? {
@@ -184,13 +192,19 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
       options: data
     }
 
-    if (editId) {
-      useCartStore.getState().updateItem(editId, cartItem)
+    if (cart.isDifferentRestaurant(cartItem.restaurantId)) {
+      setPendingItem(cartItem)
+      setShowDialog(true)
     } else {
-      useCartStore.getState().addItem(cartItem)
-    }
+      if (editId) {
+        cart.updateItem(editId, cartItem)
+      } else {
+        cart.addItem(cartItem)
+        cart.setRestaurant(restaurant)
+      }
 
-    router.push('/checkout')
+      router.push('/checkout')
+    }
   }
 
   const sortedOptions = Object.entries(product.options ?? []).sort(
@@ -436,6 +450,22 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
           </div>
         ) : null}
       </form>
+
+      <RestaurantConflictDialog
+        open={showDialog}
+        onOpenChange={(open) => setShowDialog(open)}
+        onCancel={() => setShowDialog(false)}
+        onConfirm={() => {
+          if (pendingItem) {
+            const cart = useCartStore.getState()
+            cart.clearCart()
+            cart.setRestaurant(restaurant)
+            cart.addItem(pendingItem)
+
+            router.push('/checkout')
+          }
+        }}
+      />
     </Form>
   )
 }

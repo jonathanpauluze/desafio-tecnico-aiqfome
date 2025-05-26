@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { STORAGE_CART_KEY } from '@/constants/storage'
-import { type ProductOptions } from '@/types'
+import { type ProductOptions, type Restaurant } from '@/types'
 
 export type SelectedExtra = {
   group: string
@@ -26,6 +26,9 @@ export type CartItem = {
 interface CartState {
   items: CartItem[]
   total: number
+  restaurant: Restaurant | null
+  setRestaurant: (restaurant: Restaurant) => void
+  isDifferentRestaurant: (restaurantId: string) => boolean
   addItem: (item: Omit<CartItem, 'totalPrice'>) => void
   updateItem: (id: string, newData: Omit<CartItem, 'totalPrice'>) => void
   removeItem: (productId: string) => void
@@ -38,6 +41,15 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       total: 0,
+      restaurant: null,
+
+      setRestaurant: (restaurant) => set({ restaurant }),
+
+      isDifferentRestaurant: (restaurantId: string) => {
+        const current = get().restaurant
+
+        return current !== null && current.id !== restaurantId
+      },
 
       addItem: (item) => {
         const extrasTotal = item.extras.reduce(
