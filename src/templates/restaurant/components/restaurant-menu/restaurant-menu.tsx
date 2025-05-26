@@ -92,7 +92,7 @@ export async function RestaurantMenu(props: Readonly<RestaurantMenuProps>) {
 
                         {product?.formattedOriginalPrice ? (
                           <span className="text-xs text-neutral-500 font-bold self-end line-through">
-                            {product.formattedPrice}
+                            {product.formattedOriginalPrice}
                           </span>
                         ) : null}
 

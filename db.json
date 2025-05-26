@@ -147,15 +147,11 @@
       "price": 1990,
       "restaurantId": "1",
       "categoryId": "2",
-      "image": "https://source.unsplash.com/600x400/?ceviche,salmon",
+      "image": "/assets/food.png",
       "badges": [],
       "options": {
-        "quantity": {
-          "type": "number",
-          "title": "quantos?",
-          "required": true
-        },
         "size": {
+          "position": 2,
           "type": "radio",
           "title": "qual o tamanho?",
           "required": true,
@@ -173,6 +169,7 @@
           ]
         },
         "sides": {
+          "position": 3,
           "type": "checkbox",
           "title": "acompanhamentos",
           "min": 1,
@@ -186,6 +183,7 @@
           ]
         },
         "drinks": {
+          "position": 4,
           "type": "quantity",
           "title": "vai querer bebida?",
           "required": false,
@@ -198,6 +196,7 @@
           ]
         },
         "cutlery": {
+          "position": 5,
           "type": "radio",
           "title": "precisa de talher?",
           "max": 1,
@@ -207,6 +206,7 @@
           ]
         },
         "extras": {
+          "position": 6,
           "type": "checkbox",
           "title": "mais alguma coisa?",
           "max": 2,
@@ -225,7 +225,7 @@
       "price": 1399,
       "restaurantId": "1",
       "categoryId": "3",
-      "image": "https://source.unsplash.com/600x400/?temaki,sushi",
+      "image": "/assets/food.png",
       "badges": ["VEGAN"],
       "options": null
     },
@@ -236,7 +236,7 @@
       "price": 1400,
       "restaurantId": "1",
       "categoryId": "3",
-      "image": "https://source.unsplash.com/600x400/?temaki,philadelphia",
+      "image": "/assets/food.png",
       "badges": [],
       "options": null
     },
@@ -247,7 +247,7 @@
       "price": 1400,
       "restaurantId": "1",
       "categoryId": "3",
-      "image": "https://source.unsplash.com/600x400/?temaki,philadelphia",
+      "image": "/assets/food.png",
       "badges": ["SPICY"],
       "options": null
     },
@@ -259,10 +259,11 @@
       "price": 1890,
       "restaurantId": "1",
       "categoryId": "3",
-      "image": "https://source.unsplash.com/600x400/?temaki,salmon",
+      "image": "/assets/food.png",
       "badges": [],
       "options": {
         "size": {
+          "position": 1,
           "type": "radio",
           "title": "Qual o tamanho?",
           "required": true,
@@ -288,7 +289,7 @@
       "price": 500,
       "restaurantId": "1",
       "categoryId": "4",
-      "image": "https://source.unsplash.com/600x400/?cocacola,drink",
+      "image": "/assets/drink.png",
       "badges": [],
       "options": null
     }

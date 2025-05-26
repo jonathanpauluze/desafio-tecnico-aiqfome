@@ -25,22 +25,23 @@ export enum ProductBadge {
 }
 
 export type ProductOptionChoice = {
-  id?: string
+  id: string
   label: string
   price: number
   original_price?: number
 }
 
-export type ProductOptions = {
-  [key: string]: {
-    type: 'radio' | 'checkbox' | 'number' | 'quantity'
-    title: string
-    required?: boolean
-    min?: number
-    max?: number
-    choices?: ProductOptionChoice[]
-  }
+export type ProductOption = {
+  type: 'radio' | 'checkbox' | 'quantity'
+  title: string
+  required?: boolean
+  min?: number
+  max?: number
+  choices?: ProductOptionChoice[]
+  position?: number
 }
+
+export type ProductOptions = Record<string, ProductOption>
 
 export type Product = {
   id: string
@@ -51,5 +52,5 @@ export type Product = {
   categoryId: string
   image: string
   badges?: ProductBadge[]
-  options?: ProductOptions | null
+  options?: ProductOptions
 }

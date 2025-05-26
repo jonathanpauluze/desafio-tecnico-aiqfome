@@ -43,6 +43,7 @@ export async function getMenuByRestaurantId(
       let price = product.price
       let displayType: 'DEFAULT' | 'FROM' | 'PROMO' = 'DEFAULT'
       let originalPrice: number | undefined
+      let hasFrom = false
 
       const sizeOptions = product.options?.size?.choices
 
@@ -60,6 +61,7 @@ export async function getMenuByRestaurantId(
           originalPrice = lowest.original_price
         } else if (lowest.price !== highest.price) {
           displayType = 'FROM'
+          hasFrom = true
         }
       }
 
@@ -72,11 +74,11 @@ export async function getMenuByRestaurantId(
         formattedPrice: formatCurrency(price),
         originalPrice,
         formattedOriginalPrice: originalPrice
-          ? formatCurrency(price)
+          ? formatCurrency(originalPrice)
           : undefined,
         displayType,
         hasOptions,
-        hasFrom: displayType === 'FROM',
+        hasFrom: hasFrom,
         badges: product.badges ?? []
       }
     })

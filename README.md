@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍔 Aiqfome
 
-## Getting Started
+Projeto feito para posição de Desenvolvedor Front-End Sênior
 
-First, run the development server:
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js 15 (App Router)**
+- **TypeScript**
+- **Tailwind CSS**
+- **Radix UI / shadcn/ui** (Accordion, Button, Tag, etc.)
+- **React Icons personalizados** (`MotocycleIcon`, `ChevronRightIcon`, etc.)
+- **json-server** (mock backend)
+- **LocalStorage API** (para favoritos e carrinho)
+- **Formatação com utilitários próprios** (`formatCurrency`, `cn`, etc.)
+
+## 📁 Estrutura de Pastas
+
+```
+src/
+├── app/ → Rotas do Next.js
+├── components/ → UI reutilizável
+├───├── icons/ → Ícones SVG personalizados
+|   └── ui/ → Componentes do shadcn/ui
+├── hooks/ → Hooks compartilhados
+├── lib/ → Funções utilitárias
+├── templates/ → Telas estruturadas
+└── types/ → Tipagens globais
+```
+
+## 📦 Rodando o projeto
+
+Instale as dependências:
+
+```bash
+npm i
+# ou
+yarn i
+# ou
+pnpm i
+```
+
+Inicie o servidor json na porta 3001:
+
+```bash
+npx json-server --watch db.json --port 3001
+```
+
+Em uma novo terminal, execute o projeto:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Fluxo de desenvolvimento
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Para fins de avaliação interna do time técnico, deixo registrado aqui o meu fluxo durante a criação do projeto:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Iniciei o projeto seguindo a [documentação oficial do Next.js](https://nextjs.org/docs/app/getting-started/installation). Utilizei a configuração com TypeScript e TailwindCSS.
 
-## Learn More
+2. Criei o arquivo JSON para servir de mock do backend.
 
-To learn more about Next.js, take a look at the following resources:
+3. Exportei os assets do Figma proposto e adicionei à pasta `public`, separei os ícones por pastas para manter a organização.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Instalei a biblioteca [`shadcn/ui`](https://ui.shadcn.com/) para obter alguns componentes a serem utilizados na aplicação. Optei por essa biblioteca pois ela é usa como base o com Radix (o que já melhora a acessibilidade e facilita customização) e possui integração com Tailwind.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Comecei criando o header seguindo fielmente o Figma, para isso precisei criar 2 componentes para utilizar ali, o `Button` e o `Input`. O input do Figma possui o tamanho de fonte de 14px e isso ocasiona um pequeno zoom quando o input é focado, para evitar isso o ideal é que o input tenha 16px no mínimo. Optei por seguir o layout proposto, mas deixo aqui essa observação.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6.

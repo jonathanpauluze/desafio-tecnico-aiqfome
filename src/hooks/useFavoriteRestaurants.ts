@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
-
-const STORAGE_KEY = '@aiqfome:favorites'
+import { STORAGE_FAVORITES_KEY } from '@/constants/storage'
 
 export function useFavoriteRestaurants() {
   const [favorites, setFavorites] = useState<string[]>(() => {
     if (typeof window === 'undefined') return []
-    const stored = localStorage.getItem(STORAGE_KEY)
+    const stored = localStorage.getItem(STORAGE_FAVORITES_KEY)
     return stored ? (JSON.parse(stored) as string[]) : []
   })
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
+    localStorage.setItem(STORAGE_FAVORITES_KEY, JSON.stringify(favorites))
   }, [favorites])
 
   const toggleFavorite = (id: string) => {
