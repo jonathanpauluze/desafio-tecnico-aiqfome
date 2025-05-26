@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCartStore } from '@/contexts/useCartStore'
+import { useCartStore } from '@/contexts/use-cart-store'
 import { Button } from '@/ui'
 import { PencilIcon } from '@/icons'
 import { QuantityInput } from '@/components/quantity-input'

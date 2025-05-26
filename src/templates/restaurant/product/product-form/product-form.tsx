@@ -22,7 +22,11 @@ import { useProductFormSchema } from '@/hooks/use-product-form-schema'
 import { getProductFormDefaultValues } from '@/lib/form/product-schema-utils'
 import { formatCurrency } from '@/lib/format'
 import z from 'zod'
-import { CartItem, SelectedExtra, useCartStore } from '@/contexts/useCartStore'
+import {
+  CartItem,
+  SelectedExtra,
+  useCartStore
+} from '@/contexts/use-cart-store'
 import { useMemo, useState } from 'react'
 import { QuantityInput } from '@/components/quantity-input'
 import { cn } from '@/lib/utils'
