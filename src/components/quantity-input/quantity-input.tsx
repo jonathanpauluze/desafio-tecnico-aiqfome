@@ -23,6 +23,7 @@ export function QuantityInput({
   className
 }: Readonly<QuantityInputProps>) {
   const isZero = value <= 0
+  const isOne = value === 1
 
   return (
     <div className={cn('flex items-center gap-1', className)}>
@@ -34,9 +35,9 @@ export function QuantityInput({
         className={cn('p-0 text-teal-400 border-teal-400 rounded-full', {
           'opacity-50 bg-gray-400 dark:bg-gray-100 text-gray-900 border-gray-100 cursor-not-allowed':
             isZero && !showDelete,
+          'border-none': isOne && showDelete,
           'w-8 h-8': size === 'md',
-          'w-6 h-6': size === 'sm',
-          'border-none': showDelete
+          'w-6 h-6': size === 'sm'
         })}
       >
         {showDelete && value === 1 ? (

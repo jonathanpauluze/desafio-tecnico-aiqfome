@@ -88,11 +88,6 @@ export const useCartStore = create<CartState>()(
           ]
         }
 
-        console.log('Adding item to cart:', {
-          items: newItems,
-          total: newItems.reduce((acc, i) => acc + i.totalPrice, 0)
-        })
-
         set({
           items: newItems,
           total: newItems.reduce((acc, i) => acc + i.totalPrice, 0)
@@ -113,11 +108,6 @@ export const useCartStore = create<CartState>()(
               }
             : item
         )
-
-        console.log('Updating item to cart:', {
-          items: updatedItems,
-          total: updatedItems.reduce((acc, item) => acc + item.totalPrice, 0)
-        })
 
         set({
           items: updatedItems,
