@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { z, ZodTypeAny } from 'zod'
-import { buildProductFieldValidation } from '@/lib/form/productSchemaUtils'
+import { buildProductFieldValidation } from '@/lib/form/product-schema-utils'
 import type { ProductOptions } from '@/types/restaurant'
 
 export function useProductFormSchema(options: ProductOptions) {

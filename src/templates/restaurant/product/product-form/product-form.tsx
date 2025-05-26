@@ -18,7 +18,7 @@ import {
 } from '@/ui'
 import { MoneyCircleIcon } from '@/icons'
 import { useProductFormSchema } from '@/hooks/use-product-form-schema'
-import { getProductFormDefaultValues } from '@/lib/form/productSchemaUtils'
+import { getProductFormDefaultValues } from '@/lib/form/product-schema-utils'
 import { formatCurrency } from '@/lib/format'
 import z from 'zod'
 import { SelectedExtra, useCartStore } from '@/contexts/useCartStore'

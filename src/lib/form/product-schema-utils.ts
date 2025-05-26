@@ -3,20 +3,10 @@ import { type ProductOption } from '@/types/restaurant'
 
 export function buildProductFieldValidation(option: ProductOption): ZodTypeAny {
   switch (option.type) {
-    case 'number': {
-      const field = z.number().min(1, 'Obrigatório')
-      return option.required ? field : field.optional()
-    }
-
     case 'radio': {
-      const field = z
-        .string({
-          required_error: 'Selecione uma opção',
-          invalid_type_error: 'Selecione uma opção'
-        })
-        .min(1, 'Selecione uma opção')
-
-      return option.required ? field : field.optional()
+      return option.required
+        ? z.string().min(1, 'Selecione uma opção')
+        : z.string().optional()
     }
 
     case 'checkbox': {
@@ -35,6 +25,7 @@ export function buildProductFieldValidation(option: ProductOption): ZodTypeAny {
 
     case 'quantity': {
       const field = z.record(z.number())
+
       return option.required ? field : field.optional()
     }
 
@@ -50,10 +41,6 @@ export function getProductFormDefaultValues(
 
   for (const [key, opt] of Object.entries(options)) {
     switch (opt.type) {
-      case 'number':
-        defaults[key] = 0
-        break
-
       case 'radio':
         defaults[key] = ''
         break
