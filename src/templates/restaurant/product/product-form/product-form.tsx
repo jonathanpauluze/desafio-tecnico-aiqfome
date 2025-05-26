@@ -30,13 +30,14 @@ import {
 import { useMemo, useState } from 'react'
 import { QuantityInput } from '@/components/quantity-input'
 import { cn } from '@/lib/utils'
-import { type Restaurant, type Product } from '@/types/restaurant'
 import { RestaurantConflictDialog } from '../../components/restaurant-conflict-dialog'
 import {
   getCheckboxExtras,
   getQuantityExtras,
   getRadioPrice
 } from '@/lib/form/price-utils'
+import { getOptionInstruction } from '@/lib/product/product-utils'
+import { type Restaurant, type Product } from '@/types/restaurant'
 
 type ProductFormProps = {
   restaurant: Restaurant
@@ -238,6 +239,10 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
                 <label className="font-bold text-sm text-neutral-800 dark:text-neutral-200">
                   {option.title}
                 </label>
+
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {getOptionInstruction(option.min, option.max)}
+                </p>
               </div>
 
               {option.required ? (
@@ -367,6 +372,7 @@ export function ProductForm(props: Readonly<ProductFormProps>) {
                   >
                     <div className="flex items-center gap-2">
                       <QuantityInput
+                        size="sm"
                         value={values[key][choice.id]}
                         onIncrement={() =>
                           form.setValue(
