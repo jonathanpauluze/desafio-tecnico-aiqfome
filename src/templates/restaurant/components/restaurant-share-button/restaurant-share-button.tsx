@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui'
 import { ShareIcon } from '@/icons'
-import { useShareRestaurant } from '@/hooks/useShareRestaurant'
+import { useShareRestaurant } from '@/hooks/use-share-restaurant'
 
 type RestaurantShareProps = {
   restaurantName: string

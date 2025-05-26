@@ -17,7 +17,7 @@ import {
   RadioGroupItem
 } from '@/ui'
 import { MoneyCircleIcon } from '@/icons'
-import { useProductFormSchema } from '@/hooks/useProductFormSchema'
+import { useProductFormSchema } from '@/hooks/use-product-form-schema'
 import { getProductFormDefaultValues } from '@/lib/form/productSchemaUtils'
 import { formatCurrency } from '@/lib/format'
 import z from 'zod'
