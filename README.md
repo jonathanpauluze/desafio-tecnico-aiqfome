@@ -2,29 +2,30 @@
 
 Projeto feito para posição de Desenvolvedor Front-End Sênior
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias utilizadas
 
-- **Next.js 15 (App Router)**
-- **TypeScript**
-- **Tailwind CSS**
-- **Radix UI / shadcn/ui** (Accordion, Button, Tag, etc.)
-- **React Icons personalizados** (`MotocycleIcon`, `ChevronRightIcon`, etc.)
-- **json-server** (mock backend)
-- **LocalStorage API** (para favoritos e carrinho)
-- **Formatação com utilitários próprios** (`formatCurrency`, `cn`, etc.)
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- shadcn/ui + Radix UI
+- json-server (para servir de mock do backend)
+- Zod + react-hook-form
+- Zustand
 
-## 📁 Estrutura de Pastas
+## 📁 Estrutura de pastas
 
 ```
 src/
-├── app/ → Rotas do Next.js
-├── components/ → UI reutilizável
-├───├── icons/ → Ícones SVG personalizados
-|   └── ui/ → Componentes do shadcn/ui
-├── hooks/ → Hooks compartilhados
-├── lib/ → Funções utilitárias
-├── templates/ → Telas estruturadas
-└── types/ → Tipagens globais
+├── app/                     # Rotas App Router
+├── components/              # Componentes reutilizáveis
+│   ├── icons/               # Ícones SVG como React components
+│   └── ui/                  # Base do shadcn/ui e componentes gerais
+├── hooks/                   # Hooks compartilhados
+├── lib/                     # Funções utilitárias
+├── templates/               # Páginas estruturadas por contexto (ex: restaurante, checkout)
+├── contexts/                # Contexts e stores do Zustand
+├── constants/               # Variáveis constantes
+└── types/                   # Tipagens globais
 ```
 
 ## 📦 Rodando o projeto
@@ -55,18 +56,54 @@ yarn dev
 pnpm dev
 ```
 
-## Fluxo de desenvolvimento
+## ✅ Funcionalidades entregues
 
-Para fins de avaliação interna do time técnico, deixo registrado aqui o meu fluxo durante a criação do projeto:
+- [x] Listagem de restaurantes
+- [x] Navegação de produtos no cardápio
+- [x] Tela de produto com múltiplas variações (radio, checkbox, quantidades dinâmicas)
+- [x] Carrinho de compras persistente
+- [x] Edição de item do carrinho
+- [x] Controle de restaurante único por carrinho (com dialog de conflito)
+- [x] Compartilhamento via API de share do Navigator (adicionado fallback para copiar link)
+- [x] Mobile-first
+- [x] Dark mode nativo via Tailwind
+- [x] Tipagem total (sem any), com validação de formulário utilizando Zod
 
-1. Iniciei o projeto seguindo a [documentação oficial do Next.js](https://nextjs.org/docs/app/getting-started/installation). Utilizei a configuração com TypeScript e TailwindCSS.
+## ❌ Funcionalidades não implementadas
 
-2. Criei o arquivo JSON para servir de mock do backend.
+Alguns pontos foram considerados, mas optados por não serem implementados neste teste por priorização de tempo:
 
-3. Exportei os assets do Figma proposto e adicionei à pasta `public`, separei os ícones por pastas para manter a organização.
+- [ ] Tela de login e autenticação de usuário
+- [ ] Testes unitários
+- [ ] Animações de transição (para melhoria na usabilidade)
+- [ ] Uso da API de geolocalização do browser e busca por CEP
 
-4. Instalei a biblioteca [`shadcn/ui`](https://ui.shadcn.com/) para obter alguns componentes a serem utilizados na aplicação. Optei por essa biblioteca pois ela é usa como base o com Radix (o que já melhora a acessibilidade e facilita customização) e possui integração com Tailwind.
+## 🧠 Decisões técnicas
 
-5. Comecei criando o header seguindo fielmente o Figma, para isso precisei criar 2 componentes para utilizar ali, o `Button` e o `Input`. O input do Figma possui o tamanho de fonte de 14px e isso ocasiona um pequeno zoom quando o input é focado, para evitar isso o ideal é que o input tenha 16px no mínimo. Optei por seguir o layout proposto, mas deixo aqui essa observação.
+- Persistência com Zustand e LocalStorage: permite salvar estado mesmo após reloads sem depender de context API complexa
+- Formulário dinâmico e validado: montado com base no JSON de opções e validado dinamicamente via schema
+- Separação de templates e components: `templates/` cuida da estrutura de página e `components/` é reutilizável
+- Controle de carrinho pelo id do restaurante: evita conflitos e permite clareza ao usuário sobre a origem dos produtos
+- Extração de lógica complexa: como cálculo de total e organização de extras
 
-6.
+## 🧪 Fluxo de desenvolvimento
+
+Meu processo na construção do projeto:
+
+1. Setup do projeto com Next.js 15, App Router, Tailwind, TypeScript e estruturação das rotas e templates
+
+2. Criação do mock backend com json-server para simular endpoints REST e facilitar o desenvolvimento offline
+
+3. Implementação dos componentes visuais baseados no Figma, respeitando o design system proposto
+
+4. Validação e montagem do formulário de produto com opções complexas (radio, checkbox, quantity), usando react-hook-form + zod
+
+5. Criação de lógica de carrinho inteligente, com identificação única dos itens por ID (nanoid), agrupamento de itens extras e edição individual
+
+6. Adição de funcionalidades de compartilhamento, dark mode e feedbacks ao usuário com Dialog e Toast do shadcn/ui
+
+## 🤝 Considerações finais
+
+Este projeto foi desenvolvido com cuidado para balancear performance, usabilidade, legibilidade e organização de código
+
+Agradeço a oportunidade e fico à disposição para qualquer dúvida técnica
