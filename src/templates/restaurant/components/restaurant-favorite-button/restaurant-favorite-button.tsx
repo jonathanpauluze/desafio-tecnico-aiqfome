@@ -18,9 +18,11 @@ export function RestaurantFavoriteButton(
   const { isFavorite, toggleFavorite } = useFavoriteRestaurants()
 
   let icon = null
+  let srText = ''
 
   if (isMounted) {
     icon = isFavorite(restaurantId) ? <HeartFilledIcon /> : <HeartIcon />
+    srText = isFavorite(restaurantId) ? 'Desfavoritar' : 'Favoritar'
   }
 
   return (
@@ -32,9 +34,7 @@ export function RestaurantFavoriteButton(
     >
       {icon}
 
-      <span className="sr-only">
-        {isFavorite(restaurantId) ? 'Desfavoritar' : 'Favoritar'}
-      </span>
+      <span className="sr-only">{srText}</span>
     </Button>
   )
 }
