@@ -1,7 +1,8 @@
 'use client'
 
 import { FieldError, useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { nanoid } from 'nanoid'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
@@ -33,8 +34,23 @@ type ProductFormProps = {
 
 export function ProductForm({ product }: Readonly<ProductFormProps>) {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const schema = useProductFormSchema(product.options ?? {})
-  const defaultValues = getProductFormDefaultValues(product.options ?? {})
+
+  const editId = searchParams.get('edit')
+
+  const itemToEdit = useCartStore
+    .getState()
+    .items.find((item) => item.id === editId)
+
+  const defaultValues = itemToEdit
+    ? {
+        ...itemToEdit.options,
+        quantity: itemToEdit.quantity,
+        observation: itemToEdit.observation
+      }
+    : getProductFormDefaultValues(product.options ?? {})
+
   type FormData = z.infer<typeof schema>
 
   const form = useForm<FormData>({
@@ -103,16 +119,13 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
 
     for (const [key, option] of Object.entries(options)) {
       const selected = data[key as keyof FormData]
-
       if (!selected) continue
 
       if (option.type === 'radio') {
         const choice = option.choices?.find(
           (choice) => choice.label === selected
         )
-
         if (!choice) continue
-
         if (key === 'size') {
           basePrice = choice.price
         } else if (choice.price) {
@@ -145,7 +158,6 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
         Object.entries(selected as Record<string, number>).forEach(
           ([id, quantity]) => {
             if (typeof quantity !== 'number') return
-
             const choice = option.choices?.find((c) => c.id === id)
             if (choice && quantity > 0) {
               extras.push({
@@ -159,7 +171,8 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
       }
     }
 
-    useCartStore.getState().addItem({
+    const cartItem = {
+      id: editId ?? nanoid(),
       productId: product.id,
       restaurantId: product.restaurantId,
       name: product.name,
@@ -167,8 +180,15 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
       quantity,
       basePrice,
       observation,
-      extras
-    })
+      extras,
+      options: data
+    }
+
+    if (editId) {
+      useCartStore.getState().updateItem(editId, cartItem)
+    } else {
+      useCartStore.getState().addItem(cartItem)
+    }
 
     router.push('/checkout')
   }
@@ -312,7 +332,7 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
                   control={form.control}
                   name={key}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem key={key}>
                       {option.choices?.map((choice) => (
                         <div
                           key={choice.id}
@@ -323,7 +343,7 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
                               <Checkbox
                                 checked={field.value?.includes(choice.id)}
                                 onCheckedChange={(checked) => {
-                                  const valueArray = field.value || []
+                                  const valueArray = field.value ?? []
                                   if (checked) {
                                     field.onChange([...valueArray, choice.id])
                                   } else {
@@ -338,11 +358,11 @@ export function ProductForm({ product }: Readonly<ProductFormProps>) {
                             </FormControl>
                             <FormLabel>{choice.label}</FormLabel>
                           </div>
-                          {choice.price && (
+                          {choice.price ? (
                             <p className="text-sm font-medium text-brand">
                               + {formatCurrency(choice.price)}
                             </p>
-                          )}
+                          ) : null}
                         </div>
                       ))}
                       <FormMessage />

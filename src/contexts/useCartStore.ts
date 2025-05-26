@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { STORAGE_CART_KEY } from '@/constants/storage'
+import { type ProductOptions } from '@/types'
 
 export type SelectedExtra = {
   group: string
@@ -9,6 +10,7 @@ export type SelectedExtra = {
 }
 
 export type CartItem = {
+  id: string
   productId: string
   restaurantId: string
   name: string
@@ -18,12 +20,14 @@ export type CartItem = {
   basePrice: number
   extras: SelectedExtra[]
   totalPrice: number
+  options: ProductOptions
 }
 
 interface CartState {
   items: CartItem[]
   total: number
   addItem: (item: Omit<CartItem, 'totalPrice'>) => void
+  updateItem: (id: string, newData: Omit<CartItem, 'totalPrice'>) => void
   removeItem: (productId: string) => void
   updateItemQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
@@ -66,14 +70,46 @@ export const useCartStore = create<CartState>()(
             ...get().items,
             {
               ...item,
+              options: item.options,
               totalPrice: (item.basePrice + extrasTotal) * item.quantity
             }
           ]
         }
 
+        console.log('Adding item to cart:', {
+          items: newItems,
+          total: newItems.reduce((acc, i) => acc + i.totalPrice, 0)
+        })
+
         set({
           items: newItems,
           total: newItems.reduce((acc, i) => acc + i.totalPrice, 0)
+        })
+      },
+
+      updateItem: (id, newData) => {
+        const extrasTotal = newData.extras.reduce(
+          (acc, extra) => acc + extra.price,
+          0
+        )
+        const updatedItems = get().items.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                ...newData,
+                totalPrice: (newData.basePrice + extrasTotal) * newData.quantity
+              }
+            : item
+        )
+
+        console.log('Updating item to cart:', {
+          items: updatedItems,
+          total: updatedItems.reduce((acc, item) => acc + item.totalPrice, 0)
+        })
+
+        set({
+          items: updatedItems,
+          total: updatedItems.reduce((acc, item) => acc + item.totalPrice, 0)
         })
       },
 
