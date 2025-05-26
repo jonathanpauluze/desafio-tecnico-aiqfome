@@ -301,6 +301,79 @@
     },
     {
       "id": "7",
+      "name": "Mega Stacker 2.0",
+      "description": "Duas deliciosas carnes grelhadas no fogo como churrasco, cheddar fatiado, bacon e molho Stacker.",
+      "price": 2290,
+      "restaurantId": "2",
+      "categoryId": "5",
+      "image": "/assets/food.png",
+      "badges": [],
+      "options": {
+        "sides": {
+          "position": 1,
+          "type": "checkbox",
+          "title": "acompanhamentos",
+          "min": 1,
+          "max": 2,
+          "required": true,
+          "choices": [
+            { "id": "1", "label": "batata media", "price": 100 },
+            { "id": "2", "label": "batata grande", "price": 200 },
+            { "id": "3", "label": "sem acompanhamentos" }
+          ]
+        },
+        "drinks": {
+          "position": 2,
+          "type": "quantity",
+          "title": "vai querer bebida?",
+          "required": false,
+          "choices": [
+            { "id": "1", "label": "pepsi", "price": 700 },
+            { "id": "2", "label": "guaraná antarctica", "price": 500 },
+            { "id": "3", "label": "água sem gás", "price": 300 },
+            { "id": "4", "label": "água com gás", "price": 350 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "8",
+      "name": "Big King + Batata Pequena + Bebida",
+      "description": "Dois deliciosos hambúrgueres grelhados no fogo como churrasco, cheddar fatiado, cebola, picles, alface e molho Big King™.",
+      "price": 2290,
+      "restaurantId": "2",
+      "categoryId": "6",
+      "image": "/assets/food.png",
+      "badges": [],
+      "options": {
+        "sides": {
+          "position": 1,
+          "type": "radio",
+          "title": "aumentar batata por apenas R$1,00?",
+          "min": 1,
+          "max": 2,
+          "required": true,
+          "choices": [
+            { "id": "1", "label": "batata m" },
+            { "id": "2", "label": "batata g", "price": 100 }
+          ]
+        },
+        "drinks": {
+          "position": 2,
+          "type": "radio",
+          "title": "escolha sua bebida",
+          "required": false,
+          "choices": [
+            { "id": "1", "label": "pepsi" },
+            { "id": "2", "label": "guaraná antarctica" },
+            { "id": "3", "label": "água sem gás" },
+            { "id": "4", "label": "água com gás" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "9",
       "name": "Coca-cola lata",
       "description": "350ml",
       "price": 500,
