@@ -91,15 +91,15 @@ export default function Checkout() {
                     size="sm"
                     value={item.quantity}
                     onIncrement={() =>
-                      updateItemQuantity(item.productId, item.quantity + 1)
+                      updateItemQuantity(item.id, item.quantity + 1)
                     }
                     onDecrement={() => {
                       const newQuantity = item.quantity - 1
 
                       if (newQuantity > 0) {
-                        updateItemQuantity(item.productId, item.quantity - 1)
+                        updateItemQuantity(item.id, item.quantity - 1)
                       } else {
-                        removeItem(item.productId)
+                        removeItem(item.id)
                       }
                     }}
                     showDelete

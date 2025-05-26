@@ -31,7 +31,7 @@ interface CartState {
   isDifferentRestaurant: (restaurantId: string) => boolean
   addItem: (item: Omit<CartItem, 'totalPrice'>) => void
   updateItem: (id: string, newData: Omit<CartItem, 'totalPrice'>) => void
-  removeItem: (productId: string) => void
+  removeItem: (cartItemId: string) => void
   updateItemQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
 }
@@ -94,13 +94,13 @@ export const useCartStore = create<CartState>()(
         })
       },
 
-      updateItem: (id, newData) => {
+      updateItem: (cartItemId, newData) => {
         const extrasTotal = newData.extras.reduce(
           (acc, extra) => acc + extra.price,
           0
         )
         const updatedItems = get().items.map((item) =>
-          item.id === id
+          item.id === cartItemId
             ? {
                 ...item,
                 ...newData,
@@ -115,28 +115,29 @@ export const useCartStore = create<CartState>()(
         })
       },
 
-      removeItem: (productId) => {
-        const newItems = get().items.filter((i) => i.productId !== productId)
+      removeItem: (cartItemId: string) => {
+        const newItems = get().items.filter((i) => i.id !== cartItemId)
+
         set({
           items: newItems,
           total: newItems.reduce((acc, i) => acc + i.totalPrice, 0)
         })
       },
 
-      updateItemQuantity: (productId, quantity) => {
-        const newItems = get().items.map((i) => {
-          if (i.productId === productId) {
-            const extrasTotal = i.extras.reduce(
+      updateItemQuantity: (cartItemId, quantity) => {
+        const newItems = get().items.map((item) => {
+          if (item.id === cartItemId) {
+            const extrasTotal = item.extras.reduce(
               (acc, extra) => acc + extra.price,
               0
             )
             return {
-              ...i,
+              ...item,
               quantity,
-              totalPrice: (i.basePrice + extrasTotal) * quantity
+              totalPrice: (item.basePrice + extrasTotal) * quantity
             }
           }
-          return i
+          return item
         })
 
         set({
